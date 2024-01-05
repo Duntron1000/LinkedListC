@@ -41,6 +41,16 @@ void printList(linkedList* l) {
         printf("%d->", cursor->value);
         cursor = cursor->next;
     }
+    puts("\n");
+}
+
+int listPop(linkedList* l) {
+    int ret = l->head->value;
+    node * newHead = l->head->next;
+    free(l->head);
+    l->len--;
+    l->head = newHead;
+    return ret;
 }
 
 void linkedListDel(linkedList* l) {
@@ -59,8 +69,11 @@ int main(int argc, char** argv) {
     for (int i = 0; i < 10; i++){
         addNode(list, i);
     }
-    node* head = list->head;
     printList(list);
+    for (int i = 0; i < 5; i++){
+        printf("poped: %d\n", listPop(list));
+        printList(list);
+    }
     linkedListDel(list);
     return 0;
 }
